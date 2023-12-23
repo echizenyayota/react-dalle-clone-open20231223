@@ -9,7 +9,7 @@ const App = () => {
     <div className="app">
       <section className="search-section">
         <p>Start with a detailed description 
-          <span className="surprise"> Surprise me</span>
+          <span className="surprise">Surprise me</span>
         </p>
         <div className="input-container">
           <input 
