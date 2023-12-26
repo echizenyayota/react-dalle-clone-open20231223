@@ -4,6 +4,7 @@ const App = () => {
 
   const [images, setImages] = useState(null);
   const [value, setValue] = useState(null);
+  const [error, setError] = useState(null);
 
   const surpriseOptions = [
     "A blue ostrich eating melon",
@@ -12,11 +13,17 @@ const App = () => {
   ];
 
   const surpriseMe = () => {
+    setImages(null);
     const randomValue = surpriseOptions[Math.floor(Math.random() * surpriseOptions.length)];
     setValue(randomValue);
   }
 
   const getImages = async() => {
+    setImages(null);
+    if (value === null) {
+      setError("Error! Must have a search word");
+      return;
+    }
     try {
       const options = {
         method: "POST",
@@ -53,6 +60,7 @@ const App = () => {
           <button onClick={getImages}>Generate</button>
 
         </div>
+        {error && <p>{error}</p>}
       </section>
       <section className="image-section">
         {images?.map((image, _index) => (
