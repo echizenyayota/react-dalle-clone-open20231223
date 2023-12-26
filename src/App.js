@@ -11,12 +11,17 @@ const App = () => {
     "A pineapple sunbathing on an island",
   ];
 
+  const surpriseMe = () => {
+    const randomValue = surpriseOptions[Math.floor(Math.random() * surpriseOptions.length)];
+    setValue(randomValue);
+  }
+
   const getImages = async() => {
     try {
       const options = {
         method: "POST",
         body: JSON.stringify({
-          message: "BLUGH",
+          message: value,
         }),
         headers: {
           "Content-type": "application/json"
@@ -37,7 +42,7 @@ const App = () => {
     <div className="app">
       <section className="search-section">
         <p>Start with a detailed description 
-          <span className="surprise">Surprise me</span>
+          <span className="surprise" onClick={surpriseMe}>Surprise me</span>
         </p>
         <div className="input-container">
           <input 
