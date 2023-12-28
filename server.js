@@ -33,5 +33,9 @@ app.post("/images", async(req, res) => {
   }
 });
 
+app.post("/upload", (req, res) => {
+
+});
+
 app.listen(PORT, () => console.log("Your server is running on PORT " + PORT));
 

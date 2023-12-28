@@ -44,12 +44,24 @@ const App = () => {
     }
   }
 
-  const uploadImage = (e) => {
+  const uploadImage = async (e) => {
     console.log(e.target.files[0]);
 
     const formData = new FormData();
     formData.append('file', e.target.files[0]);
     setSelectedImage(e.target.files[0]);
+
+    try {
+      const options = {
+        method: "POST",
+        body: formData,
+      }
+      const response = await fetch('http://localhost:8000/upload', options);
+      const data = await response.json();
+      console.log(data);
+    } catch(error) {
+      console.error(error);
+    }
   }
 
   return (
