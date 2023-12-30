@@ -7,7 +7,7 @@ const App = () => {
   const [value, setValue] = useState(null);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const surpriseOptions = [
     "A blue ostrich eating melon",
@@ -51,6 +51,7 @@ const App = () => {
 
     const formData = new FormData();
     formData.append('file', e.target.files[0]);
+    setModalOpen(true);
     setSelectedImage(e.target.files[0]);
 
     try {

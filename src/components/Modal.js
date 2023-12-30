@@ -15,6 +15,7 @@ const Modal = ({ setModalOpen, setSelectedImage, selectedImage }) => {
       <div className="img-container">
         {selectedImage && <img src={URL.createObjectURL(selectedImage)} alt="uploaded image"/>}
       </div>
+      <button>Generate</button>
     </div>
   );
 }
