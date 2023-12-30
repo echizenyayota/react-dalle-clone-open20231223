@@ -12,13 +12,27 @@ const openai = new OpenAI({
 const app = express();
 app.use(cors());
 app.use(express.json());
-require("dotenv").config();
+
+const fs = require('fs');
+const multer = require('multer');
 
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "Testing whether the API works"
   });
-}); 
+});
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public');
+  },
+  filename: (req, file, cb) => {
+    console.log('file', file);
+    cb(null, Date.now() + "-" + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage }).single('file');
 
 app.post("/images", async(req, res) => {
   try {
@@ -34,7 +48,14 @@ app.post("/images", async(req, res) => {
 });
 
 app.post("/upload", (req, res) => {
-
+  upload(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json(err);
+    } else if(err) {
+      return res.status(500).json(err);
+    }
+  });
+  console.log(req.file);
 });
 
 app.listen(PORT, () => console.log("Your server is running on PORT " + PORT));
