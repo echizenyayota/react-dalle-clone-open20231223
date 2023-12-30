@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Modal from "./components/Modal";
 
 const App = () => {
 
@@ -6,6 +7,7 @@ const App = () => {
   const [value, setValue] = useState(null);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [modalOpen, setModalOpen] = useState(true);
 
   const surpriseOptions = [
     "A blue ostrich eating melon",
@@ -86,6 +88,9 @@ const App = () => {
           to edit. 
         </p>
         {error && <p>{error}</p>}
+        {modalOpen && <div className="overlay">
+          <Modal />
+        </div>}
       </section>
       <section className="image-section">
         {images?.map((image, _index) => (
