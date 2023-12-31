@@ -33,6 +33,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage }).single('file');
+let filePath;
 
 app.post("/images", async(req, res) => {
   try {
@@ -55,7 +56,20 @@ app.post("/upload", (req, res) => {
       return res.status(500).json(err);
     }
   });
-  console.log(req.file);
+  filePath = req.file.path;
+});
+
+app.post("/variations", async (req, res) => {
+  try {
+    const response = await openai.images.createVariation({
+      image: fs.createReadStream(filePath),
+      size: "256x256",
+    });
+    console.log(response.data);
+    res.send(response.data);
+  } catch(error) {
+    console.error(error);
+  }
 });
 
 app.listen(PORT, () => console.log("Your server is running on PORT " + PORT));
