@@ -41,6 +41,7 @@ const App = () => {
       const data = await response.json();
       console.log(data);
       setImages(data);
+      setModalOpen(false);
     } catch(error) {
       console.error(error);
     }
@@ -62,6 +63,22 @@ const App = () => {
       const response = await fetch('http://localhost:8000/upload', options);
       const data = await response.json();
       console.log(data);
+    } catch(error) {
+      console.error(error);
+    }
+  }
+
+  const generateVariations = async () => {
+    try {
+      const options ={
+        method: "POST",
+
+      };
+      const response =  await fetch('http://localhost:8000/variations', options);
+      const data = await response.json();
+      console.log(data);
+      setImages(data);
+      setError(null);
     } catch(error) {
       console.error(error);
     }
@@ -94,6 +111,7 @@ const App = () => {
             setModalOpen={setModalOpen}
             setSelectedImage={setSelectedImage}
             selectedImage={selectedImage}
+            generateVariations={generateVariations}
           />
         </div>}
       </section>
