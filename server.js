@@ -55,8 +55,8 @@ app.post("/upload", (req, res) => {
     } else if(err) {
       return res.status(500).json(err);
     }
+    filePath = req.file.path;
   });
-  filePath = req.file.path;
 });
 
 app.post("/variations", async (req, res) => {

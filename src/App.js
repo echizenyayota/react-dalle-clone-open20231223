@@ -41,7 +41,6 @@ const App = () => {
       const data = await response.json();
       console.log(data);
       setImages(data);
-      setModalOpen(false);
     } catch(error) {
       console.error(error);
     }
@@ -54,6 +53,7 @@ const App = () => {
     formData.append('file', e.target.files[0]);
     setModalOpen(true);
     setSelectedImage(e.target.files[0]);
+    e.target.value = null;
 
     try {
       const options = {
@@ -69,6 +69,12 @@ const App = () => {
   }
 
   const generateVariations = async () => {
+    setImages(null);
+    if (selectedImage === null) {
+      setError('Error! Must have an existing image');
+      setModalOpen(false);
+      return;
+    }
     try {
       const options ={
         method: "POST",
@@ -79,6 +85,7 @@ const App = () => {
       console.log(data);
       setImages(data);
       setError(null);
+      setModalOpen(false);
     } catch(error) {
       console.error(error);
     }
