@@ -136,3 +136,9 @@ p {
 .modal button:active {
   background-color: #fafafc;
 }
+
+.image-container {
+  height: 256px;
+  width: 256px;
+  overflow: hidden;
+}
